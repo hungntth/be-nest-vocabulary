@@ -4,6 +4,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ChaptersModule } from './chapters/chapters.module';
 import configuration from './config/configuration';
 import { VocabulariesModule } from './vocabulary/vocabularies.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { ExcelModule } from './excel/excel.module';
 
 @Module({
   imports: [
@@ -19,6 +21,7 @@ import { VocabulariesModule } from './vocabulary/vocabularies.module';
     }),
     ChaptersModule,
     VocabulariesModule,
+    ExcelModule,
   ],
   controllers: [],
   providers: [],
