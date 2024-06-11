@@ -46,16 +46,13 @@ export class ExcelService {
     // Đọc dữ liệu từ sheet đầu tiên
     const worksheet = workbook.getWorksheet(1);
     const data = [];
-    worksheet.eachRow((row, rowNumber) => {
-      console.log(rowNumber);
+    worksheet.eachRow((row) => {
       const rowData = [];
-      row.eachCell((cell, colNumber) => {
-        console.log(colNumber);
+      row.eachCell((cell) => {
         rowData.push(cell.value);
       });
       data.push(rowData);
     });
-    console.log(data);
     return data;
   }
 }

@@ -12,6 +12,11 @@ export class VocabulariesService {
   ) {}
 
   async create(createVocabularyDto: CreateVocabularyDto): Promise<Vocabulary> {
+    const checkVocabulary = await this.chapterModel.findOne({
+      name: createVocabularyDto.name,
+      chapterId: createVocabularyDto.chapterId,
+    });
+    if (checkVocabulary) return checkVocabulary;
     const createdVocabulary = new this.chapterModel(createVocabularyDto);
     await createMp3File({
       vocabulary: createVocabularyDto.name,

@@ -22,12 +22,8 @@ export class ChaptersController {
   constructor(private readonly chaptersService: ChaptersService) {}
 
   @Get()
-  findAll() {
-    return {
-      data: {
-        test: 'Đây là get test',
-      },
-    };
+  async findAll() {
+    return await this.chaptersService.findAll();
   }
 
   @Post('create')
@@ -40,13 +36,14 @@ export class ChaptersController {
     return await this.chaptersService.detail({ _id: id });
   }
 
-  @Post('upload')
+  @Post('import-excel')
   @UseInterceptors(CustomFileInterceptor())
-  uploadFile(
+  async uploadFile(
+    @Body() { chapterNo }: { chapterNo: number },
     @CustomUploadFile()
     file: Express.Multer.File,
   ) {
-    console.log(file);
+    await this.chaptersService.importExcel(Number(chapterNo), file);
     return {
       message: 'oke',
     };

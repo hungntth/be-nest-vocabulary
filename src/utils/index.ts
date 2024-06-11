@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import { promises } from 'fs';
+import { join } from 'path';
 import OpenAI from 'openai';
 
 const createMp3File = async ({
@@ -10,7 +10,7 @@ const createMp3File = async ({
   const openai = new OpenAI({
     apiKey: process.env.API_KEY_OPEN_AI,
   });
-  const speechFile = path.join(`./mp3/${vocabulary}.mp3`);
+  const speechFile = join(`./mp3/${vocabulary}.mp3`);
   const mp3 = await openai.audio.speech.create({
     model: 'tts-1',
     voice: 'alloy',
@@ -18,7 +18,7 @@ const createMp3File = async ({
   });
 
   const buffer = Buffer.from(await mp3.arrayBuffer());
-  await fs.promises.writeFile(speechFile, buffer);
+  await promises.writeFile(speechFile, buffer);
   console.log(speechFile);
 };
 

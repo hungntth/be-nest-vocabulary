@@ -5,10 +5,19 @@ import { ChaptersController } from './chapters.controller';
 import { ChaptersService } from './chapters.service';
 import { ChaptersRepository } from './chapters.repository';
 import { MulterModule } from '@nestjs/platform-express';
+import { ExcelService } from 'src/excel/excel.service';
+import { VocabulariesService } from 'src/vocabulary/vocabularies.service';
+import {
+  Vocabulary,
+  VocabularySchema,
+} from 'src/vocabulary/schemas/vocabulary.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Chapter.name, schema: ChapterSchema }]),
+    MongooseModule.forFeature([
+      { name: Chapter.name, schema: ChapterSchema },
+      { name: Vocabulary.name, schema: VocabularySchema },
+    ]),
     MulterModule.registerAsync({
       useFactory: () => ({
         dest: './upload',
@@ -16,6 +25,11 @@ import { MulterModule } from '@nestjs/platform-express';
     }),
   ],
   controllers: [ChaptersController],
-  providers: [ChaptersService, ChaptersRepository],
+  providers: [
+    ChaptersService,
+    ChaptersRepository,
+    ExcelService,
+    VocabulariesService,
+  ],
 })
 export class ChaptersModule {}
