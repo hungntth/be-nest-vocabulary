@@ -3,9 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ChaptersModule } from './chapters/chapters.module';
 import configuration from './config/configuration';
-import { VocabulariesModule } from './vocabulary/vocabularies.module';
-import { MulterModule } from '@nestjs/platform-express';
 import { ExcelModule } from './excel/excel.module';
+import { VocabulariesModule } from './vocabulary/vocabularies.module';
 
 @Module({
   imports: [

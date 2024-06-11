@@ -6,16 +6,17 @@ import { join } from 'path';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true,
+  });
 
   app.use(helmet());
   app.use(compression());
 
   app.setGlobalPrefix('api/v1');
   app.useStaticAssets(join(__dirname, '..', 'mp3'), {
-    prefix: '/public/mp3'
+    prefix: '/public/mp3',
   });
-
 
   await app.listen(process.env.PORT);
 

@@ -13,7 +13,7 @@ import { MulterModule } from '@nestjs/platform-express';
       useFactory: () => ({
         dest: './upload',
       }),
-    })
+    }),
   ],
   controllers: [ChaptersController],
   providers: [ChaptersService, ChaptersRepository],

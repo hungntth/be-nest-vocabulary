@@ -9,7 +9,7 @@ import { ChaptersRepository } from './chapters.repository';
 export class ChaptersService {
   constructor(
     @InjectModel(Chapter.name) private chapterModel: Model<Chapter>,
-    private readonly chaptersRepo: ChaptersRepository
+    private readonly chaptersRepo: ChaptersRepository,
   ) {}
 
   async create(createChapterDto: CreateChapterDto): Promise<Chapter> {

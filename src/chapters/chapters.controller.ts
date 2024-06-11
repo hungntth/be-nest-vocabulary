@@ -56,8 +56,18 @@ export class ChaptersController {
   @Header('Content-Type', 'application/json')
   @Header('Content-Disposition', 'attachment; filename="testV1.xlsx"')
   downloadFileV1(): StreamableFile {
-    console.log(join(process.cwd(), './upload/1718030299930_6551cdc6209e72001daa6760.xlsx-1718030630544-632739122.xlsx'));
-    const file = createReadStream(join(process.cwd(), './upload/1718030299930_6551cdc6209e72001daa6760.xlsx-1718030630544-632739122.xlsx'));
+    console.log(
+      join(
+        process.cwd(),
+        './upload/1718030299930_6551cdc6209e72001daa6760.xlsx-1718030630544-632739122.xlsx',
+      ),
+    );
+    const file = createReadStream(
+      join(
+        process.cwd(),
+        './upload/1718030299930_6551cdc6209e72001daa6760.xlsx-1718030630544-632739122.xlsx',
+      ),
+    );
     return new StreamableFile(file);
   }
 
@@ -67,7 +77,12 @@ export class ChaptersController {
       'Content-Type': 'application/json',
       'Content-Disposition': 'attachment; filename="testV2.json"',
     });
-    const file = createReadStream(join(process.cwd(), './upload/1718030299930_6551cdc6209e72001daa6760.xlsx-1718030630544-632739122.xlsx'));
+    const file = createReadStream(
+      join(
+        process.cwd(),
+        './upload/1718030299930_6551cdc6209e72001daa6760.xlsx-1718030630544-632739122.xlsx',
+      ),
+    );
     return new StreamableFile(file);
   }
 }

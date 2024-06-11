@@ -4,7 +4,6 @@ import { Response } from 'express';
 
 @Injectable()
 export class ExcelService {
-    
   async generateExcel(res: Response) {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Sheet1');
@@ -17,15 +16,46 @@ export class ExcelService {
     ];
 
     // Thêm dữ liệu mẫu
-    worksheet.addRow({ id: 1, name: 'John Doe', email: 'john.doe@example.com' });
-    worksheet.addRow({ id: 2, name: 'Jane Smith', email: 'jane.smith@example.com' });
+    worksheet.addRow({
+      id: 1,
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+    });
+    worksheet.addRow({
+      id: 2,
+      name: 'Jane Smith',
+      email: 'jane.smith@example.com',
+    });
 
     // Thiết lập kiểu trả về là file Excel
-    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    );
     res.setHeader('Content-Disposition', 'attachment; filename=report.xlsx');
 
     // Ghi dữ liệu vào response
     await workbook.xlsx.write(res);
     res.end();
+  }
+
+  async readFile(file: Express.Multer.File) {
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.readFile(file.path);
+
+    // Đọc dữ liệu từ sheet đầu tiên
+    const worksheet = workbook.getWorksheet(1);
+    const data = [];
+    worksheet.eachRow((row, rowNumber) => {
+      console.log(rowNumber);
+      const rowData = [];
+      row.eachCell((cell, colNumber) => {
+        console.log(colNumber);
+        rowData.push(cell.value);
+      });
+      data.push(rowData);
+    });
+    console.log(data);
+    return data;
   }
 }
